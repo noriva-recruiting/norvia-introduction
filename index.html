@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NORVIA - Talent Acquisition Process</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+        :root {
+            --norvia-blue: #0a2463;
+            --norvia-red: #fb3640;
+            --norvia-accent: #00a6fb;
+            --norvia-dark: #1e1e24;
+            --norvia-light: #f8f9fa;
+        }
+       
+        .company-logo {
+    height: 60px; /* Höhe anpassen */
+    width: auto;
+    object-fit:contain;
+
+}     
+        @font-face {
+            font-family: 'NorviaSans';
+            src: url('https://fonts.cdnfonts.com/css/sf-pro-display') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'NorviaSans', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: var(--norvia-dark);
+            color: var(--norvia-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(10, 36, 99, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(251, 54, 64, 0.6) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .cyber-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            border: 2px solid var(--norvia-accent);
+            box-shadow: 0 0 15px rgba(0, 166, 251, 0.5);
+            animation: borderPulse 8s infinite;
+        }
+        
+        @keyframes borderPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 166, 251, 0.3);
+            position: relative;
+        }
+        
+        .logo {
+    display: flex;
+    flex-direction: column; /* Stack Logo und Slogan untereinander */
+    align-items: flex-start; /* linksbündig (oder center für zentriert) */
+    gap: 0.5rem; /* Abstand zwischen Logo und Slogan */
+}
+        
+.logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00a6fb 0%, #0582ca 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo .tagline {
+            font-size: 0.9rem;
+            color: rgba(248, 249, 250, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--norvia-accent);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+        
+        .page {
+            background: rgba(30, 30, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 166, 251, 0.1);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--norvia-red), var(--norvia-accent));
+        }
+        
+        .active-page {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--norvia-light);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--norvia-accent);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: rgba(248, 249, 250, 0.9);
+            line-height: 1.7;
+        }
+        
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        li::before {
+            content: '→';
+            color: var(--norvia-accent);
+            position: absolute;
+            left: -1.5rem;
+        }
+    
+        strong {
+            color: var(--norvia-accent);
+            font-weight: 600;
+        }
+        
+        .timer {
+            font-size: 1.5;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-align: right;
+            margin: 2rem 0;
+            color: var(--norvia-light);
+            position: relative;
+        }
+        
+        .timer::before {
+            content: 'TIME REMAINING';
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: rgba(248, 249, 250, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--norvia-accent) 0%, #0582ca 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 166, 251, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 166, 251, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover::after {
+            transform: translateY(0);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(248, 249, 250, 0.1);
+            margin: 2rem 0;
+            border-radius: 2px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--norvia-red), var(--norvia-accent));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .terminal-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 166, 251, 0.05),
+                rgba(0, 166, 251, 0.05) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        textarea {
+            width: 100%;
+            background: rgba(10, 36, 99, 0.2);
+            border: 1px solid rgba(0, 166, 251, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--norvia-light);
+            font-size: 1rem;
+            min-height: 150px;
+            margin: 1rem 0;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--norvia-accent);
+            box-shadow: 0 0 0 2px rgba(0, 166, 251, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            #app {
+                padding: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .status-indicator { display: none !important; }
+
+    </style>
+</head>
+<body>
+    <div class="cyber-border"></div>
+    <div id="app">
+        <header>
+            <div class="logo">
+               <img src="NorviaLogo-removebg-preview.png" alt="NORVIA Logo" class="company-logo">
+                <div class="tagline">Human Potential - Data-Driven.</div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Application in Progress</span>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Page 1 -->
+        <div class="page active-page" id="page1">
+            <div class="terminal-effect"></div>
+            <h1>Welcome to NORVIA - Where AI Meets Human Potential.</h1>
+          <p>We are a Scandinavian, global leader in digital HR technology. At NORVIA, we believe in combining human expertise with technology to shape the future of recruiting.</p>
+            <p>You’ve applied for a position with us – thank you for taking that step!</p>
+<p>We’d love to get to know you a bit more on a personal level. Not through a formal interview – just a few short questions where you can share something about yourself in your own words.</p>
+<p>This won’t affect your application in any way. It’s simply a chance for us to better understand the people behind the profiles – and to shape a more personal and thoughtful hiring experience.</p>
+<p>There’s no pressure and no right or wrong answers – just be yourself.</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page" id="page2">
+            <div class="terminal-effect"></div>
+            <h1>Written Reflection - What This Step Is About</h1>
+            <p>In this part of the process, you will be asked to answer a few short personal questions in written form. </p>
+            <p>And again: Your responses will primarily serve to get to know you on a personal level without having an impact on the success of your application.</p>
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="page" id="page3">
+            <div class="terminal-effect"></div>
+            <h1>What you will do</h1>
+            <p>You will be asked to answer four questions in writing. Please respond in ~5 sentences per question, using clear and natural language.</p>
+            <p>You will have 1 minute per question to write down your thoughts.</p>
+          <p>You may answer in english or german depending on what you feel most comfortable with.</p>
+
+       <p style="color: white; font-weight: bold;">
+        IMPORTANT: Before continuing, please return to the survey NOW to provide us with some important insights needed for our research purposes.
+    </p>
+
+   
+
+</div>
+
+        
+    </div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 3;
+    let timers = [];
+
+    function updateProgressBar() {
+        const progress = (currentPage / totalPages) * 100;
+        document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    function nextPage() {
+        document.getElementById(`page${currentPage}`).classList.remove('active-page');
+        currentPage++;
+        document.getElementById(`page${currentPage}`).classList.add('active-page');
+        updateProgressBar();
+    }
+
+    function startQuestions() {
+        nextPage(); // Go to page 4 (Question 1)
+        startTimerForQuestion(1, nextQuestion); // ✅ Callback ergänzt
+    }
+
+    function nextQuestion() {
+        // Stop the previous timer if running
+        if (timers.length > 0) {
+            clearInterval(timers[timers.length - 1]);
+        }
+
+        document.getElementById(`page${currentPage}`).classList.remove('active-page');
+        currentPage++;
+        document.getElementById(`page${currentPage}`).classList.add('active-page');
+        updateProgressBar();
+
+        const questionIndex = currentPage - 3; // Page 4 = Q1 → 4 - 3 = 1
+
+        if (questionIndex <= 4) {
+            if (questionIndex === 4) {
+                startTimerForQuestion(questionIndex, submitAnswers); // Last one
+            } else {
+                startTimerForQuestion(questionIndex, nextQuestion);
+            }
+        }
+    }
+
+    function startTimerForQuestion(index, callback) {
+        const timerId = `timer${index}`;
+        const timerElement = document.getElementById(timerId);
+        let remaining = 60;
+
+        const timer = setInterval(() => {
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            timerElement.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            if (remaining <= 0) {
+                clearInterval(timer);
+                if (callback) callback(); // ✅ automatische Weiterleitung nach Ablauf
+            }
+
+            remaining--;
+        }, 1000);
+
+        timers.push(timer);
+    }
+
+    function submitAnswers() {
+        if (timers.length > 0) {
+            clearInterval(timers[timers.length - 1]);
+        }
+
+        const answers = {
+            question1: document.getElementById('answer1').value,
+            question2: document.getElementById('answer2').value,
+            question3: document.getElementById('answer3').value,
+            question4: document.getElementById('answer4').value
+        };
+
+        console.log("Collected answers:", answers);
+        nextPage(); // Go to completion page
+    }
+
+    // Initialize progress bar
+    updateProgressBar();
+</script>
