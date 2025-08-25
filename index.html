@@ -407,6 +407,10 @@
         currentPage++;
         document.getElementById(`page${currentPage}`).classList.add('active-page');
         updateProgressBar();
+     //Neu
+      if (currentPage === 3) {
+    window.parent.postMessage('showContinueBtn', '*');
+    } 
     }
 
     function startQuestions() {
